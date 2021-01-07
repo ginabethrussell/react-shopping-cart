@@ -8,20 +8,23 @@ import { CartContext } from './contexts/CartContext';
 import Navigation from './components/Navigation';
 import Products from './components/Products';
 import ShoppingCart from './components/ShoppingCart';
-import Product from './components/Product';
 
 function App() {
 	const [products] = useState(data);
 	const [cart, setCart] = useState([]);
 
 	const addItem = item => {
-		// add the given item to the cart
 		setCart([...cart, item])
 	};
-	console.log(cart);
+	const removeItem = id => {
+		const updatedCart = [...cart];
+		const editedCart = updatedCart.filter(item => item.id !== id);
+		setCart(editedCart);
+	}
+
 	return (
 		<ProductContext.Provider value={{ products, addItem }} >
-			<CartContext.Provider value={{cart}} >
+			<CartContext.Provider value={{cart, removeItem}} >
 				<div className="App">
 					<Navigation />
 
